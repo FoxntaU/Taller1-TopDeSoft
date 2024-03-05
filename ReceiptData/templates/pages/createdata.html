@@ -1,0 +1,24 @@
+{% extends 'pages/base.html' %}
+{% block title %}'Home Page - Online Store'{% endblock %}
+{% block header_title %}Create Data{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Ingrese el nombre y los archivos no estructurados</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ingrese el nombre del archivo">
+        <br>
+        {{ form.file }}
+        <br>
+        <button style="margin-top: 25px;" type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+
+{% include 'partials/messages.html' %}
+
+<div class="container">
+    <div id="mensaje-exito" style="display: none;" class="alert alert-success"></div>
+</div>
+
+{% endblock %}

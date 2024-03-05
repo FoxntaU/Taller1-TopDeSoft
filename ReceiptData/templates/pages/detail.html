@@ -1,0 +1,25 @@
+{% extends 'pages/base.html' %}
+{% block title %}'Detalle de Archivo - Online Store'{% endblock %}
+{% block header_title %}Detalle de Archivo{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ archivo.nombre }}</h5>
+          <img class="card-img-top" src="{{ archivo.archivo.url }}" alt="{{ archivo.nombre }}">
+          <p class="card-text">{{ archivo.descripcion }}</p>
+          
+          <p class="card-text"><strong>Fecha de subida:</strong> {{ archivo.fecha_subida }}</p>
+          <!-- Botón para eliminar -->
+          <form action="{% url 'eliminar_archivo' archivo.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
