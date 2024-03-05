@@ -1,4 +1,3 @@
-
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
@@ -47,10 +46,14 @@ class ArchivoForm(forms.Form):
     file = forms.FileField()
     # file = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
+class UploadFileView(View):
+    template_name = 'pages/createdata.html'
 
+    def get(self, request):
+        form = ArchivoForm()
+        return render(request, self.template_name, {'form': form})
 
-def upload_file(request):
-    if request.method == 'POST':
+    def post(self, request):
         form = ArchivoForm(request.POST, request.FILES)
         if form.is_valid():
             nombre = form.cleaned_data['nombre']
@@ -60,11 +63,4 @@ def upload_file(request):
                 messages.success(request, 'Archivo creado exitosamente.')
             else:
                 messages.error(request, 'Error al crear el archivo.')
-    else: 
-        form = ArchivoForm()
-    return render(request, 'pages/createdata.html', {'form': form})
-
-
-
-
-
+        return render(request, self.template_name, {'form': form})
